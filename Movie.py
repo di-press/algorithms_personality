@@ -1,5 +1,5 @@
 class Movie:
-
+    #big_five is a dict
     def __init__(self, movie_id, movie_name, movie_rating, movie_script, big_five, genre):
         
         self.movie_id = movie_id

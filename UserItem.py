@@ -1,4 +1,5 @@
 class UserItem:
+    #big five is a dict; movies is a list with Movie objects
 
     def __init__(self, hash_id, movies, big_five):
         

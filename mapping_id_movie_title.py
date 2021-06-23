@@ -46,9 +46,30 @@ df = pd.read_csv (personality_csv_file,
                 )
 
 #df = pd.read_csv(personality_csv_file)
-movie_1_list = list(df['movie_1'])
-print(movie_1_list)
-#print(subdataframe)
+
+movie_items =  ['movie_1',
+                'movie_2',
+                'movie_3',
+                'movie_4',
+                'movie_5',
+                'movie_6',
+                'movie_7',
+                'movie_8',
+                'movie_9',
+                'movie_10',
+                'movie_11',
+                'movie_12']
+
+all_movies = []
+
+for item in movie_items:
+
+    all_movies += list(df[item])
+
+
+# all_movies contains 2415 different movies
+all_movies = set(all_movies)
+
 
 
 

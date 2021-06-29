@@ -1,9 +1,10 @@
 from pathlib import Path
 import pandas as pd
+import movielens_id_title
 
 personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')
 
-df = pd.read_csv (personality_csv_file,
+personality_data_df = pd.read_csv (personality_csv_file,
                     sep=", ", warn_bad_lines=True, 
                     error_bad_lines=True,
                     engine='python',
@@ -45,7 +46,7 @@ df = pd.read_csv (personality_csv_file,
 
                 )
 
-#df = pd.read_csv(personality_csv_file)
+#personality_data_df = pd.read_csv(personality_csv_file)
 
 movie_items =  ['movie_1',
                 'movie_2',
@@ -64,11 +65,18 @@ all_movies = []
 
 for item in movie_items:
 
-    all_movies += list(df[item])
+    all_movies += list(personality_data_df[item])
 
 
 # all_movies contains 2415 different movies
 all_movies = set(all_movies)
+
+
+movielens_data_df = movielens_id_title.create_df()
+
+movielens_id_title.find_title_by_movielens_id(all_movies, movielens_data_df)
+
+
 
 
 

@@ -24,6 +24,9 @@ def create_df():
 
 
 def find_title_by_movielens_id(movielens_ids, df):
+
+    id_title_tuples = []
+
     for id in movielens_ids:
         print("buscando id: ", id)
         id = int(id)
@@ -36,8 +39,14 @@ def find_title_by_movielens_id(movielens_ids, df):
         if not found_object.empty:
         
             movie_title = found_object['title'].item()
+            movie_title = str(movie_title)
 
-            print(movie_title)
+            # id is a number
+            id_title_tuples.append((id, movie_title))
+
+            #print(movie_title)
+    
+    return id_title_tuples
 
 
 def find_titles(movielens_ids):

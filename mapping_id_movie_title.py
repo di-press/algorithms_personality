@@ -1,6 +1,6 @@
 from pathlib import Path
 import pandas as pd
-import movielens_id_title
+import movielens_id_title as Mv
 
 personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')
 
@@ -72,9 +72,10 @@ for item in movie_items:
 all_movies = set(all_movies)
 
 
-movielens_data_df = movielens_id_title.create_df()
+movielens_data_df = Mv.create_df()
 
-movielens_id_title.find_title_by_movielens_id(all_movies, movielens_data_df)
+id_title_tuples = Mv.find_title_by_movielens_id(all_movies, movielens_data_df)
+print(id_title_tuples)
 
 
 

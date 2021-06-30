@@ -29,7 +29,7 @@ def create_df():
 def find_plot(df, movie_title, year):
 
         #found_object = df[df["Title"] == movie_title and df['Release Year'] == year]
-        found_object = df.query('Title == @movie_title & Release Year == @year')
+        found_object = df.query('Title == @movie_title and `Release Year` == @year')
         if not found_object.empty:
             plot = str(found_object['Plot'].item())
             print(plot)
@@ -37,6 +37,6 @@ def find_plot(df, movie_title, year):
 if __name__ == '__main__':
 
     df = create_df()
-    find_plot(df, 'My Girl', '1991')
+    find_plot(df, 'My Girl', 1991)
 
 

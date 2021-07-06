@@ -85,4 +85,5 @@ if __name__ == "__main__":
     
     df=create_df()
 
-    find_title_by_movielens_id(movielens_ids,df)
+    found = find_title_by_movielens_id(movielens_ids,df)
+    print(found)

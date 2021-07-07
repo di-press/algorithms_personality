@@ -50,10 +50,17 @@ def query_by_actor(actor_name):
 
     return best_castings
 
-def find_exemplo():
-    find = tmdb.Find('tt0120363')
+def find_exemplo(imdb_id):
+
+    find = tmdb.Find(imdb_id)
     response = find.info(external_source='imdb_id')
-    print(response)
+    #print(len(response['movie_results']))
+
+    if len(response['movie_results']) > 0:
+
+        return(response['movie_results'][0]['title'])
+
+    return "error"
 
 if __name__ == "__main__":
 
@@ -61,4 +68,6 @@ if __name__ == "__main__":
     #teste = query_by_actor('Angelina Jolie')
     #print(teste)
 
-    find_exemplo()
+    toy_story_imdb_id = 'tt0114709'
+
+    print(find_exemplo(toy_story_imdb_id))

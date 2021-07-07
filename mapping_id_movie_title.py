@@ -3,6 +3,7 @@ import pandas as pd
 import movielens_id_title as Mv
 import map_movielens_tmdb_id as MapIds
 import tmdb_query as TmdbQuery
+import title_and_plots as TitlePlots
 
 def find_titles_test(tuple_of_ids):
 

@@ -1,4 +1,5 @@
 
+
 import tmdbsimple as tmdb
 import requests
 
@@ -50,17 +51,22 @@ def query_by_actor(actor_name):
 
     return best_castings
 
-def find_exemplo(imdb_id):
+def find_title(imdb_id):
 
+    imdb_id = str(imdb_id)
     find = tmdb.Find(imdb_id)
     response = find.info(external_source='imdb_id')
+    print('searching for imdb id: ', imdb_id )
     #print(len(response['movie_results']))
 
     if len(response['movie_results']) > 0:
-
+        print("titulo encontrado é: ", response['movie_results'][0]['title'])
         return(response['movie_results'][0]['title'])
+    else:
 
-    return "error"
+        return "error"
+    
+    
 
 if __name__ == "__main__":
 
@@ -70,4 +76,6 @@ if __name__ == "__main__":
 
     toy_story_imdb_id = 'tt0114709'
 
-    print(find_exemplo(toy_story_imdb_id))
+    error_id = 'tt0112471'
+    print(find_title(toy_story_imdb_id))
+    print(find_title(error_id))

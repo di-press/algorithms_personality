@@ -1,5 +1,4 @@
 #maps the movielens id with tmdb id
-from movielens_id_title import find_title_by_movielens_id
 from os import name
 from pathlib import Path
 import pandas as pd

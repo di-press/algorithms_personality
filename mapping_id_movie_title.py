@@ -2,91 +2,138 @@ from pathlib import Path
 import pandas as pd
 import movielens_id_title as Mv
 import map_movielens_tmdb_id as MapIds
+import tmdb_query as TmdbQuery
 
-personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')
+def find_titles_test(tuple_of_ids):
 
-personality_data_df = pd.read_csv (personality_csv_file,
-                    sep=", ", warn_bad_lines=True, 
-                    error_bad_lines=True,
-                    engine='python',
-                    header=0,
-                    usecols = ['userid', 
-                               'openness', 
-                               'agreeableness', 
-                               'emotional_stability',
-                               'conscientiousness', 
-                               'extraversion',
-                               'assigned metric', 
-                               'assigned condition', 
-                               'movie_1', 
-                               'predicted_rating_1',
-                               'movie_2', 
-                               'predicted_rating_2', 
-                               'movie_3', 
-                               'predicted_rating_3', 
-                               'movie_4', 
-                               'predicted_rating_4', 
-                               'movie_5', 
-                               'predicted_rating_5', 
-                               'movie_6', 
-                               'predicted_rating_6', 
-                               'movie_7', 
-                               'predicted_rating_7', 
-                               'movie_8', 
-                               'predicted_rating_8', 
-                               'movie_9', 
-                               'predicted_rating_9', 
-                               'movie_10', 
-                               'predicted_rating_10', 
-                               'movie_11', 
-                               'predicted_rating_11', 
-                               'movie_12', 
-                               'predicted_rating_12', 
-                               'is_personalized', 
-                               'enjoy_watching'] 
+    tuple_ids_and_titles = []
 
-                )
-
-#personality_data_df = pd.read_csv(personality_csv_file)
-
-movie_items =  ['movie_1',
-                'movie_2',
-                'movie_3',
-                'movie_4',
-                'movie_5',
-                'movie_6',
-                'movie_7',
-                'movie_8',
-                'movie_9',
-                'movie_10',
-                'movie_11',
-                'movie_12']
-
-all_movies = []
-
-for item in movie_items:
-
-    all_movies += list(personality_data_df[item])
+    limit = 0
 
 
-# all_movies contains 2415 different movies
-all_movies = set(all_movies)
+            
+    for item in tuple_of_ids:
 
-link_df = MapIds.create_link_df()
-movielens_imdb_ids_tuples = MapIds.find_tmdb_id(all_movies, link_df)
-print(movielens_imdb_ids_tuples)
+        imdb_id = item[1]
+        title = TmdbQuery.find_title(imdb_id)
 
-#movielens_data_df = Mv.create_df()
+        if title != 'error':
+            new_item = (item[0], item[1], str(title))
+            tuple_ids_and_titles.append(new_item)
+            limit += 1
 
-#id_title_tuples = Mv.find_title_by_movielens_id(all_movies, movielens_data_df)
-#print(id_title_tuples)
+            if limit>5:
+                break
+
+    
+    return tuple_ids_and_titles
 
 
 
+def find_titles(tuple_of_ids):
+
+    tuple_ids_and_titles = []
+
+    for item in tuple_of_ids:
+
+        imdb_id = item[1]
+        title = TmdbQuery.find_title(imdb_id)
+
+        if title != 'error':
+            new_item = (item[0], item[1], str(title))
+            tuple_ids_and_titles.append(new_item)
+    
+    return tuple_ids_and_titles
+
+if __name__ == '__main__':
+
+    personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')
+
+    personality_data_df = pd.read_csv (personality_csv_file,
+                        sep=", ", warn_bad_lines=True, 
+                        error_bad_lines=True,
+                        engine='python',
+                        header=0,
+                        usecols = ['userid', 
+                                'openness', 
+                                'agreeableness', 
+                                'emotional_stability',
+                                'conscientiousness', 
+                                'extraversion',
+                                'assigned metric', 
+                                'assigned condition', 
+                                'movie_1', 
+                                'predicted_rating_1',
+                                'movie_2', 
+                                'predicted_rating_2', 
+                                'movie_3', 
+                                'predicted_rating_3', 
+                                'movie_4', 
+                                'predicted_rating_4', 
+                                'movie_5', 
+                                'predicted_rating_5', 
+                                'movie_6', 
+                                'predicted_rating_6', 
+                                'movie_7', 
+                                'predicted_rating_7', 
+                                'movie_8', 
+                                'predicted_rating_8', 
+                                'movie_9', 
+                                'predicted_rating_9', 
+                                'movie_10', 
+                                'predicted_rating_10', 
+                                'movie_11', 
+                                'predicted_rating_11', 
+                                'movie_12', 
+                                'predicted_rating_12', 
+                                'is_personalized', 
+                                'enjoy_watching'] 
+
+                    )
+
+    #personality_data_df = pd.read_csv(personality_csv_file)
+
+    movie_items =  ['movie_1',
+                    'movie_2',
+                    'movie_3',
+                    'movie_4',
+                    'movie_5',
+                    'movie_6',
+                    'movie_7',
+                    'movie_8',
+                    'movie_9',
+                    'movie_10',
+                    'movie_11',
+                    'movie_12']
+
+    all_movies = []
+
+    for item in movie_items:
+
+        all_movies += list(personality_data_df[item])
+
+
+    # all_movies contains 2415 different movies
+    all_movies = set(all_movies)
+
+    link_df = MapIds.create_link_df()
+    movielens_imdb_ids_tuples = MapIds.find_tmdb_id(all_movies, link_df)
+    #print(movielens_imdb_ids_tuples)
+
+    ids_and_titles_tuples = find_titles_test(movielens_imdb_ids_tuples)
+    print(ids_and_titles_tuples)
+
+    #movielens_data_df = Mv.create_df()
+
+    #id_title_tuples = Mv.find_title_by_movielens_id(all_movies, movielens_data_df)
+    #print(id_title_tuples)
 
 
 
-# user_id  user_personality  movie_id_1_movielens   
-# movie_id_1_tmdb  movie_title  movie_personality   movie_genres
 
-# 
+
+
+    # user_id  user_personality  movie_id_1_movielens   
+    # movie_id_1_tmdb  movie_title  movie_personality   movie_genres
+
+    # 

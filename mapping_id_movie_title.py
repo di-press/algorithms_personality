@@ -45,7 +45,8 @@ def find_titles(tuple_of_ids):
     
     return tuple_ids_and_titles
 
-if __name__ == '__main__':
+
+def create_database_test():
 
     personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')
 
@@ -123,17 +124,8 @@ if __name__ == '__main__':
     ids_and_titles_tuples = find_titles_test(movielens_imdb_ids_tuples)
     print(ids_and_titles_tuples)
 
-    #movielens_data_df = Mv.create_df()
 
-    #id_title_tuples = Mv.find_title_by_movielens_id(all_movies, movielens_data_df)
-    #print(id_title_tuples)
+if __name__ == '__main__':
 
-
-
-
-
-
-    # user_id  user_personality  movie_id_1_movielens   
-    # movie_id_1_tmdb  movie_title  movie_personality   movie_genres
-
-    # 
+    create_database_test()
+    

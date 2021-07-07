@@ -61,7 +61,12 @@ def find_title(imdb_id):
 
     if len(response['movie_results']) > 0:
         print("titulo encontrado é: ", response['movie_results'][0]['title'])
-        return(response['movie_results'][0]['title'])
+
+        found_title = response['movie_results'][0]['title']
+        year = response['movie_results'][0]['release_date'][:4]
+        year = int(year)
+        
+        return(found_title, year)
     else:
 
         return "error"

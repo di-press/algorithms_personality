@@ -7,7 +7,7 @@ import title_and_plots as TitlePlots
 
 def find_titles_test(tuple_of_ids):
 
-    tuple_ids_and_titles = []
+    tuple_ids_and_titles_and_year = []
 
     limit = 0
 
@@ -16,36 +16,55 @@ def find_titles_test(tuple_of_ids):
     for item in tuple_of_ids:
 
         imdb_id = item[1]
-        title = TmdbQuery.find_title(imdb_id)
+        title, year = TmdbQuery.find_title(imdb_id)
 
         if title != 'error':
-            new_item = (item[0], item[1], str(title))
-            tuple_ids_and_titles.append(new_item)
+            new_item = (item[0], item[1], str(title), year)
+            tuple_ids_and_titles_and_year.append(new_item)
             limit += 1
 
-            if limit>5:
+            if limit>10:
                 break
 
     
-    return tuple_ids_and_titles
+    return tuple_ids_and_titles_and_year
 
 
 
 def find_titles(tuple_of_ids):
 
-    tuple_ids_and_titles = []
+    tuple_ids_and_titles_and_year = []
 
     for item in tuple_of_ids:
 
         imdb_id = item[1]
-        title = TmdbQuery.find_title(imdb_id)
+        title, year = TmdbQuery.find_title(imdb_id)
 
         if title != 'error':
-            new_item = (item[0], item[1], str(title))
-            tuple_ids_and_titles.append(new_item)
+            new_item = (item[0], item[1], str(title), year)
+            tuple_ids_and_titles_and_year.append(new_item)
     
-    return tuple_ids_and_titles
+    return tuple_ids_and_titles_and_year
 
+
+def find_all_plots(ids_and_titles_year_tuples):
+
+    all_movies_plots = []
+
+    plots_df = TitlePlots.create_df()
+
+    for item in ids_and_titles_year_tuples:
+        movie_title = item[2]
+        year = int(item[3])
+
+        plot = TitlePlots.find_plot(plots_df, movie_title, year)
+
+        if plot != 'error':
+
+            new_item = (item[0], item[1], item[2], item[3], plot)
+            all_movies_plots.append(new_item)
+
+    return all_movies_plots
 
 def create_database_test():
 
@@ -122,8 +141,13 @@ def create_database_test():
     movielens_imdb_ids_tuples = MapIds.find_tmdb_id(all_movies, link_df)
     #print(movielens_imdb_ids_tuples)
 
-    ids_and_titles_tuples = find_titles_test(movielens_imdb_ids_tuples)
-    print(ids_and_titles_tuples)
+    ids_and_titles_year_tuples = find_titles_test(movielens_imdb_ids_tuples)
+    #print(ids_and_titles_year_tuples)
+    
+    tuples_titles_and_plot = find_all_plots(ids_and_titles_year_tuples)
+    
+    print(tuples_titles_and_plot)
+    print("dos 10 filmes, foram encontrados: ", len(tuples_titles_and_plot))
 
 
 if __name__ == '__main__':

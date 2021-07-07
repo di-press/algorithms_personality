@@ -26,11 +26,12 @@ def create_df():
     return wiki_plots_df.copy(deep=True)
 
 
-def find_plot(df, movie_title):
+def find_plot(df, movie_title, year):
 
+        year = int(year)
         #found_object = df[df["Title"] == movie_title and df['Release Year'] == year]
-        #found_object = df.query('Title == @movie_title and `Release Year` == @year')
-        found_object = df[df["Title"] == movie_title]
+        found_object = df.query('Title == @movie_title and `Release Year` == @year')
+        #found_object = df[df["Title"] == movie_title]
         #found_object = df.query('Title == movie_title')
 
         print('found object: ', found_object)
@@ -41,9 +42,10 @@ def find_plot(df, movie_title):
                 return plot
         else:
             return 'error'
+            
 if __name__ == '__main__':
 
     df = create_df()
-    plot = find_plot(df, 'Heat')
+    plot = find_plot(df, 'Heat', 1995)
     print(plot)
 

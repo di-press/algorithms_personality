@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
 import movielens_id_title as Mv
+import map_movielens_tmdb_id as MapIds
 
 personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')
 
@@ -71,11 +72,14 @@ for item in movie_items:
 # all_movies contains 2415 different movies
 all_movies = set(all_movies)
 
+link_df = MapIds.create_link_df()
+movielens_imdb_ids_tuples = MapIds.find_tmdb_id(all_movies, link_df)
+print(movielens_imdb_ids_tuples)
 
-movielens_data_df = Mv.create_df()
+#movielens_data_df = Mv.create_df()
 
-id_title_tuples = Mv.find_title_by_movielens_id(all_movies, movielens_data_df)
-print(id_title_tuples)
+#id_title_tuples = Mv.find_title_by_movielens_id(all_movies, movielens_data_df)
+#print(id_title_tuples)
 
 
 

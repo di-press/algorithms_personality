@@ -66,6 +66,14 @@ def find_all_plots(ids_and_titles_year_tuples):
 
     return all_movies_plots
 
+def generate_csv_database(tuples_titles_and_plot):
+
+    mapped_plots_df = pd.DataFrame(tuples_titles_and_plot,
+                      columns = ['movieId',
+                                 'imdbId',
+                                 'tmdbId',
+                                   ''])
+
 def create_database_test():
 
     personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')

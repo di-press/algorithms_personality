@@ -38,6 +38,9 @@ def find_plot(df, movie_title, year):
         
         if not found_object.empty:
             plot = str(found_object['Plot'].item())
+
+            # removing '\', '\n' and '\r' of the plots: 
+            plot = plot.strip()
             if len(plot) > 0:
                 return plot
         else:
@@ -46,6 +49,7 @@ def find_plot(df, movie_title, year):
 if __name__ == '__main__':
 
     df = create_df()
-    plot = find_plot(df, 'Heat', 1995)
+    #plot = find_plot(df, 'Heat', 1995)
+    plot = find_plot(df, 'The Fighter', 2010)
     print(plot)
 

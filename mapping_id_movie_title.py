@@ -61,6 +61,8 @@ def find_all_plots(ids_and_titles_year_tuples):
 
         if plot != 'error':
 
+            # item[0] is Movielens_ID and item[1] is imdb_ID
+            # item[2] is title and item[3] is year
             new_item = (item[0], item[1], item[2], item[3], plot)
             all_movies_plots.append(new_item)
 
@@ -69,10 +71,19 @@ def find_all_plots(ids_and_titles_year_tuples):
 def generate_csv_database(tuples_titles_and_plot):
 
     mapped_plots_df = pd.DataFrame(tuples_titles_and_plot,
-                      columns = ['movieId',
+                      columns = ['movielensId',
                                  'imdbId',
-                                 'tmdbId',
-                                   ''])
+                                 'movie_title',
+                                 'year',
+                                 'plot']
+                                )
+
+    # data containing the plots without its personality:
+    path_temp_csv = Path.cwd().joinpath('preprocessing_data.csv')
+    # index = True star indexing the csv file with 0:
+    mapped_plots_df.to_csv(path_temp_csv, index = True)
+    
+    #return mapped_plots_df.copy(deep=True)
 
 def create_database_test():
 
@@ -153,9 +164,12 @@ def create_database_test():
     #print(ids_and_titles_year_tuples)
     
     tuples_titles_and_plot = find_all_plots(ids_and_titles_year_tuples)
+
+    new_df = generate_csv_database(tuples_titles_and_plot)
+    print("df was created")
     
-    print(tuples_titles_and_plot)
-    print("dos 10 filmes, foram encontrados: ", len(tuples_titles_and_plot))
+    #print(tuples_titles_and_plot)
+    #print("dos 10 filmes, foram encontrados: ", len(tuples_titles_and_plot))
 
 
 if __name__ == '__main__':

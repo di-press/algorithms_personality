@@ -34,6 +34,24 @@ def find_titles_test(tuple_of_ids):
 def find_titles(tuple_of_ids):
 
     tuple_ids_and_titles_and_year = []
+            
+    for item in tuple_of_ids:
+
+        imdb_id = item[1]
+        title, year = TmdbQuery.find_title(imdb_id)
+
+        if title != 'error':
+            new_item = (item[0], item[1], str(title), year)
+            tuple_ids_and_titles_and_year.append(new_item)
+         
+
+    return tuple_ids_and_titles_and_year
+
+
+
+def find_titles(tuple_of_ids):
+
+    tuple_ids_and_titles_and_year = []
 
     for item in tuple_of_ids:
 
@@ -172,7 +190,96 @@ def create_database_test():
     #print("dos 10 filmes, foram encontrados: ", len(tuples_titles_and_plot))
 
 
+def create_database():
+    
+
+    personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')
+
+    personality_data_df = pd.read_csv (personality_csv_file,
+                        sep=", ", warn_bad_lines=True, 
+                        error_bad_lines=True,
+                        engine='python',
+                        header=0,
+                        usecols = ['userid', 
+                                'openness', 
+                                'agreeableness', 
+                                'emotional_stability',
+                                'conscientiousness', 
+                                'extraversion',
+                                'assigned metric', 
+                                'assigned condition', 
+                                'movie_1', 
+                                'predicted_rating_1',
+                                'movie_2', 
+                                'predicted_rating_2', 
+                                'movie_3', 
+                                'predicted_rating_3', 
+                                'movie_4', 
+                                'predicted_rating_4', 
+                                'movie_5', 
+                                'predicted_rating_5', 
+                                'movie_6', 
+                                'predicted_rating_6', 
+                                'movie_7', 
+                                'predicted_rating_7', 
+                                'movie_8', 
+                                'predicted_rating_8', 
+                                'movie_9', 
+                                'predicted_rating_9', 
+                                'movie_10', 
+                                'predicted_rating_10', 
+                                'movie_11', 
+                                'predicted_rating_11', 
+                                'movie_12', 
+                                'predicted_rating_12', 
+                                'is_personalized', 
+                                'enjoy_watching'] 
+
+                    )
+
+    #personality_data_df = pd.read_csv(personality_csv_file)
+
+    movie_items =  ['movie_1',
+                    'movie_2',
+                    'movie_3',
+                    'movie_4',
+                    'movie_5',
+                    'movie_6',
+                    'movie_7',
+                    'movie_8',
+                    'movie_9',
+                    'movie_10',
+                    'movie_11',
+                    'movie_12']
+
+    all_movies = []
+
+    for item in movie_items:
+
+        all_movies += list(personality_data_df[item])
+
+
+    # all_movies contains 2415 different movies
+    all_movies = set(all_movies)
+
+    link_df = MapIds.create_link_df()
+    movielens_imdb_ids_tuples = MapIds.find_tmdb_id(all_movies, link_df)
+    #print(movielens_imdb_ids_tuples)
+
+    ids_and_titles_year_tuples = find_titles(movielens_imdb_ids_tuples)
+    #print(ids_and_titles_year_tuples)
+    
+    tuples_titles_and_plot = find_all_plots(ids_and_titles_year_tuples)
+
+    new_df = generate_csv_database(tuples_titles_and_plot)
+    print("df was created")
+    
+    #print(tuples_titles_and_plot)
+    #print("dos 10 filmes, foram encontrados: ", len(tuples_titles_and_plot))
+
+
 if __name__ == '__main__':
 
-    create_database_test()
+    #create_database_test()
+    create_database()
     

@@ -64,12 +64,14 @@ def find_title(imdb_id):
 
         found_title = response['movie_results'][0]['title']
         year = response['movie_results'][0]['release_date'][:4]
-        year = int(year)
+        
+        if year != '':
+            year = int(year)
         
         return(found_title, year)
     else:
 
-        return "error"
+        return "error", "error"
     
     
 
@@ -79,8 +81,11 @@ if __name__ == "__main__":
     #teste = query_by_actor('Angelina Jolie')
     #print(teste)
 
-    toy_story_imdb_id = 'tt0114709'
+    #toy_story_imdb_id = 'tt0114709'
 
-    error_id = 'tt0112471'
-    print(find_title(toy_story_imdb_id))
-    print(find_title(error_id))
+    #error_id = 'tt0112471'
+    #print(find_title(toy_story_imdb_id))
+    #print(find_title(error_id))
+
+    weird_error_unpacking = 'tt0413845'
+    print(find_title(weird_error_unpacking))

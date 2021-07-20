@@ -73,7 +73,12 @@ def find_all_plots(ids_and_titles_year_tuples):
 
     for item in ids_and_titles_year_tuples:
         movie_title = item[2]
-        year = int(item[3])
+        year = item[3]
+        
+        if year == '':
+            continue
+       
+        year = int(year)
 
         plot = TitlePlots.find_plot(plots_df, movie_title, year)
 

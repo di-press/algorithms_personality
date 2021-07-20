@@ -35,7 +35,7 @@ def find_plot(df, movie_title, year):
         #found_object = df[df["Title"] == movie_title]
         #found_object = df.query('Title == movie_title')
 
-        print('found object: ', found_object.iloc[0]['Plot'])
+        #print('found object: ', found_object.iloc[0]['Plot'])
         #print(type(found_object.iloc[0]['Plot']))
         
         

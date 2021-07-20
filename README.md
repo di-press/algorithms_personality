@@ -7,5 +7,7 @@ Download latest movielens dataset, extract it and put inside the project folder.
 
 Download archive from kaggle (wiki_movie_plots_deduped.csv)
 
-a fazer: eliminar o \r das plots; extrair personalidade das plots;
+done csv with id, title and plot with 1447 movies
+a fazer: eliminar o \r das plots?
+ extrair personalidade das plots;
 montar a base com os  UserItems

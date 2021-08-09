@@ -2,6 +2,8 @@
 
 import tmdbsimple as tmdb
 import requests
+import pandas as pd
+from pathlib import Path
 
 # preciso colocar no .env:
 tmdb.API_KEY = '5225e0599ef4dcff1d23b22faa1af8ed'
@@ -74,6 +76,26 @@ def find_title(imdb_id):
         return "error", "error"
     
     
+def find_genre():
+
+    plot_personality_csv = Path.cwd().joinpath('plots_personalities.csv')
+
+    plot_personality_df = pd.read_csv(plot_personality_csv,
+                        sep=",", warn_bad_lines=True, 
+                        error_bad_lines=True,
+                        engine='python',
+                        header=0,
+                        usecols = ['movielensId',
+                                 'extroversion',
+                                 'neuroticism',
+                                 'agreeableness',
+                                 'conscientiousness',
+                                 'openess']
+                                
+                        )
+
+    
+    return plot_personality_df.copy(deep=True)
 
 if __name__ == "__main__":
 
@@ -87,5 +109,8 @@ if __name__ == "__main__":
     #print(find_title(toy_story_imdb_id))
     #print(find_title(error_id))
 
-    weird_error_unpacking = 'tt0413845'
-    print(find_title(weird_error_unpacking))
+    # error is solved:
+    #weird_error_unpacking = 'tt0413845'
+    #print(find_title(weird_error_unpacking))
+    df = find_genre()
+    print(df['movielensId'])

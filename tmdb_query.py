@@ -8,6 +8,7 @@ from pathlib import Path
 # preciso colocar no .env:
 tmdb.API_KEY = '5225e0599ef4dcff1d23b22faa1af8ed'
 
+#not working!
 def query_by_imdb_id(imdb_id):
 
     movie_object = tmdb.Find(imdb_id)
@@ -76,28 +77,23 @@ def find_title(imdb_id):
         return "error", "error"
     
     
-def find_genre():
+def find_genre(imdb_id):
 
-    plot_personality_csv = Path.cwd().joinpath('plots_personalities.csv')
+    imdb_id = str(imdb_id)
+    find = tmdb.Find(imdb_id)
+    response = find.info(external_source='imdb_id')
+    #response = query_by_imdb_id(imdb_id)
+    genre_ids = response['movie_results'][0]['genre_ids']
 
-    plot_personality_df = pd.read_csv(plot_personality_csv,
-                        sep=",", warn_bad_lines=True, 
-                        error_bad_lines=True,
-                        engine='python',
-                        header=0,
-                        usecols = ['movielensId',
-                                 'extroversion',
-                                 'neuroticism',
-                                 'agreeableness',
-                                 'conscientiousness',
-                                 'openess']
-                                
-                        )
+    find_genre = tmdb.Genres()
+    genres_list = find_genre.movie_list()
+    #print(genres_list)
+    
+  
+    for dict in genres_list['genres']:
+        if dict['id'] in genre_ids:
+            print(dict['name'])
 
-    movie_ids = list(plot_personality_df['movielensId'])
-    print(movie_ids)
-
-    response = query_by_imdb_id(movie_ids[0])
 
 if __name__ == "__main__":
 
@@ -114,5 +110,5 @@ if __name__ == "__main__":
     # error is solved:
     #weird_error_unpacking = 'tt0413845'
     #print(find_title(weird_error_unpacking))
-    find_genre()
+    find_genre('tt0114709')
     

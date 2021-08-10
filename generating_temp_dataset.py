@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
 import map_movielens_imdb_id 
+import tmdb_query as TmdbQuery
 
 #personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')
 #movie_dat_file = Path.cwd().joinpath('tag-genome', 'movies.dat')
@@ -34,7 +35,7 @@ def movielens_ids_of_final_db():
 
     #print(plot_personality_df)
 
-    path_temp_csv = Path.cwd().joinpath('plots_personality2.csv')
+    path_temp_csv = Path.cwd().joinpath('plots_personality_and_ids.csv')
     # index = True star indexing the csv file with 0:
     plot_personality_df.to_csv(path_temp_csv, index = True)
 
@@ -78,18 +79,18 @@ def id_mapping(movielens_ids_list):
 
                 movie_imdb_id = fill_zeros + movie_imdb_id
 
-            movie_imdb_id = 'tt' + movie_imdb_id
+            #movie_imdb_id = 'tt' + movie_imdb_id
             # id is a number
             imdb_ids.append(movie_imdb_id)
 
-            #print(movie_title)
+            print(imdb_ids)
     
     return imdb_ids
 
 
 def print_genres():
 
-    plot_personality_csv = Path.cwd().joinpath('plots_personality2.csv')
+    plot_personality_csv = Path.cwd().joinpath('plots_personality_and_ids.csv')
 
     plot_personality_df = pd.read_csv(plot_personality_csv,
                         sep=",", warn_bad_lines=True, 
@@ -108,11 +109,13 @@ def print_genres():
 
     imdb_ids = list(plot_personality_df['imdbId'])
 
-    print(imdb_ids)
+    for id in imdb_ids:
+        
+        movie_genre_list = TmdbQuery.find_genre(id)
 
 
 if __name__ == '__main__':
 
-    #print(movielens_ids_of_final_db())
+    #movielens_ids_of_final_db()
     print_genres()
     

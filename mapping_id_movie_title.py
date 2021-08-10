@@ -180,7 +180,7 @@ def create_database_test():
     all_movies = set(all_movies)
 
     link_df = MapIds.create_link_df()
-    movielens_imdb_ids_tuples = MapIds.find_tmdb_id(all_movies, link_df)
+    movielens_imdb_ids_tuples = MapIds.find_imdb_id(all_movies, link_df)
     #print(movielens_imdb_ids_tuples)
 
     ids_and_titles_year_tuples = find_titles_test(movielens_imdb_ids_tuples)
@@ -268,7 +268,7 @@ def create_database():
     all_movies = set(all_movies)
 
     link_df = MapIds.create_link_df()
-    movielens_imdb_ids_tuples = MapIds.find_tmdb_id(all_movies, link_df)
+    movielens_imdb_ids_tuples = MapIds.find_imdb_id(all_movies, link_df)
     #print(movielens_imdb_ids_tuples)
 
     ids_and_titles_year_tuples = find_titles(movielens_imdb_ids_tuples)

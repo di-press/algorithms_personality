@@ -94,8 +94,10 @@ def find_genre():
                                 
                         )
 
-    
-    return plot_personality_df.copy(deep=True)
+    movie_ids = list(plot_personality_df['movielensId'])
+    print(movie_ids)
+
+    response = query_by_imdb_id(movie_ids[0])
 
 if __name__ == "__main__":
 
@@ -112,5 +114,5 @@ if __name__ == "__main__":
     # error is solved:
     #weird_error_unpacking = 'tt0413845'
     #print(find_title(weird_error_unpacking))
-    df = find_genre()
-    print(df['movielensId'])
+    find_genre()
+    

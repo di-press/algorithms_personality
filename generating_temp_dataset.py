@@ -2,11 +2,7 @@ from pathlib import Path
 import pandas as pd
 import map_movielens_imdb_id 
 import tmdb_query as TmdbQuery
-
-#personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')
-#movie_dat_file = Path.cwd().joinpath('tag-genome', 'movies.dat')
-
-# 
+ 
 
 def movielens_ids_of_final_db():
 

@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 import UserItem as UI
 
-def create_UserItem():
+def create_UserItem_teste():
 
     personality_csv_file = Path.cwd().joinpath('personality-isf2018', 'personality-data.csv')
 
@@ -95,4 +95,4 @@ def create_UserItem():
 
 if __name__ == '__main__':
 
-    create_UserItem()
+    create_UserItem_teste()

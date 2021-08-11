@@ -44,20 +44,70 @@ class Movie:
                                 ]                              
                         )
         
+
+        movie_genres =  ['Action',
+                        'Adventure',
+                        'Animation',
+                        'Comedy',
+                        'Crime',
+                        'Documentary',
+                        'Drama',
+                        'Family',
+                        'Fantasy',
+                        'History',
+                        'Horror',
+                        'Music',
+                        'Mystery',
+                        'Romance',
+                        'Science Fiction',
+                        'Thriller',
+                        'TV Movie',
+                        'War',
+                        'Western',
+                        'None']
+
         found_object = movies_df[movies_df['movielensId'] == movielens_id]
-        print(found_object)
-        '''
-        self.movie_id = movie_id
-        self.movie_name = movie_name
-        self.movie_rating = movie_rating
-        self.movie_script = movie_script
-        self.extroversion = big_five['extroversion']
-        self.neuroticism = big_five['neuroticism']
-        self.agreeableness = big_five['agreeableness']
-        self.conscientiousness = big_five['conscientiousness']
-        self.openess = big_five['openess']
-        self.genre = genre
-        '''
+
+        self.genre = []
+
+        if not found_object.empty:
+            print(found_object['extroversion'])
+
+        
+            self.movielens_id = movielens_id
+            self.imdb_id = found_object['imdbId'].item()
+            self.extroversion = found_object['extroversion'].item()
+            self.neuroticism = found_object['neuroticism'].item()
+            self.agreeableness = found_object['agreeableness'].item()
+            self.conscientiousness = found_object['conscientiousness'].item()
+            self.openess = found_object['openess'].item()
+            
+
+            for genre in movie_genres:
+                self.genre.append(found_object[genre].item())
+
+       
+
+
+def print_movie(self):
+
+    print("movielensId: ", self.movielens_id)
+    print("imdbId: ", self.imdb_id)
+    print("extroversion: ", self.extroversion)
+    print("neuroticism", self.neuroticism)
+    print("agreeableness: ", self.agreeableness)
+    print("conscientiousness: ", self.conscientiousness)
+    print("openess: ", self.openess)
+
+    print("movie genres: \n")
+    for genre in self.genre:
+        print(genre)
 
 if __name__ == '__main__':
+    
+    # filme existente:
     movie_test = Movie(115713)
+    print_movie(movie_test)
+
+    # o filme abaixo não existe:
+    #movie_test = Movie(26674)

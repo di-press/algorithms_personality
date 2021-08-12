@@ -270,10 +270,6 @@ def create_UserItem():
             
         user_and_movies_objects.append((user, movies_objects))
 
-        i+=1
-        if i == 5:
-            break
-
     
     return user_and_movies_objects
 

@@ -126,7 +126,7 @@ def create_UserItem_teste():
         user_and_movies_objects.append((user, movies_objects))
 
         i+=1
-        if i == 1:
+        if i == 5:
             break
     
     return user_and_movies_objects
@@ -270,6 +270,10 @@ def create_UserItem():
             
         user_and_movies_objects.append((user, movies_objects))
 
+        i+=1
+        if i == 5:
+            break
+
     
     return user_and_movies_objects
 
@@ -287,6 +291,7 @@ def create_final_dataset(movie_user_list):
             row_tuple = (user, movie)
             df_row_tuples.append(row_tuple)
 
+    '''
     user_ids = []
     user_extroversion = []
     user_neuroticism = []
@@ -321,6 +326,9 @@ def create_final_dataset(movie_user_list):
     western = []
     none = []
     movie_rating = []
+    '''
+
+    df_rows = []
 
     for item in df_row_tuples:
         
@@ -336,7 +344,7 @@ def create_final_dataset(movie_user_list):
                             current_user.agreeableness,
                             current_user.conscientiousness,
                             current_user.openess,
-                            current_movie.movielens_Id,
+                            current_movie.movielens_id,
                             current_movie.imdb_id,
                             current_movie.extroversion,
                             current_movie.neuroticism,
@@ -364,8 +372,51 @@ def create_final_dataset(movie_user_list):
                             current_movie.genre[18],
                             current_movie.genre[19],
                             current_movie.rating
-                            )
+                        )
 
+        df_rows.append(user_item_tuple)
+
+    final_dataset_df = pd.DataFrame(df_rows,
+                        columns = ['user_id',
+                        'user_extroversion',
+                        'user_neuroticism',
+                        'user_agreeableness',
+                        'user_conscientiousness',
+                        'user_openess',
+                        'movielens_Id',
+                        'imdb_Id',
+                        'movie_extroversion',
+                        'movie_neuroticism',
+                        'movie_agreeableness',
+                        'movie_conscientiousness',
+                        'movie_openess',
+                        'action',
+                        'adventure',
+                        'animation',
+                        'comedy',
+                        'crime',
+                        'documentary',
+                        'drama',
+                        'family',
+                        'fantasy',
+                        'history',
+                        'horror',
+                        'music',
+                        'mystery',
+                        'romance',
+                        'science_fiction',
+                        'thriller',
+                        'tv_movie',
+                        'war',
+                        'western',
+                        'none',
+                        'movie_rating']                                       
+                                )
+
+    # data containing the plots and its personality:
+    path_temp_csv = Path.cwd().joinpath('final_dataset.csv')
+    # index = True star indexing the csv file with 0:
+    final_dataset_df.to_csv(path_temp_csv, index = True)
 
 if __name__ == '__main__':
 

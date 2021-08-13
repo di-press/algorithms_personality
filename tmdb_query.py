@@ -2,9 +2,10 @@ import tmdbsimple as tmdb
 import requests
 import pandas as pd
 from pathlib import Path
+import key
 
 # preciso colocar no .env:
-tmdb.API_KEY = '5225e0599ef4dcff1d23b22faa1af8ed'
+tmdb.API_KEY = key.tmdb_key
 
 #not working!
 def query_by_imdb_id(imdb_id):
@@ -118,15 +119,15 @@ if __name__ == "__main__":
     #teste = query_by_actor('Angelina Jolie')
     #print(teste)
 
-    #toy_story_imdb_id = 'tt0114709'
+    toy_story_imdb_id = 'tt0114709'
 
     #error_id = 'tt0112471'
-    #print(find_title(toy_story_imdb_id))
+    print(find_title(toy_story_imdb_id))
     #print(find_title(error_id))
 
     # error is solved:
-    weird_error_unpacking = 'tt0413845'
+    #weird_error_unpacking = 'tt0413845'
     #print(find_title(weird_error_unpacking))
     #find_genre('tt0114709')
-    find_genre(weird_error_unpacking)
+    #find_genre(weird_error_unpacking)
     
